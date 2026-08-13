@@ -6,6 +6,7 @@ from core.policies.typing import setup_policy
 from models.events import CharacterTyped, BackspacePressed, EscPressed
 from models.typing import TypingState, TypingStats
 from models.session import SessionLifecycle
+from .generator.sentence import random_sentence_english
 
 
 class TypingArea(Static):
@@ -16,7 +17,7 @@ class TypingArea(Static):
 
         self.policy = setup_policy()
         self.state = TypingState(
-            target="Some plastic chairs sat under a glowing yellow moon while a lonely cat chased shadows across the dusty street.",
+            target=random_sentence_english(),
             typed="",
         )
         self.session = TypingSession(self.policy, self.state)
