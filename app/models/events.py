@@ -4,12 +4,12 @@ from time import perf_counter
 
 @dataclass(frozen=True)
 class Event:
-    timestamp: float = field(default_factory=perf_counter, init=False)
+    timestamp: float = field(default_factory=perf_counter)
 
 
 @dataclass(frozen=True)
 class CharacterTyped(Event):
-    char: str
+    char: str = ""
 
 
 @dataclass(frozen=True)

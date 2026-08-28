@@ -1,28 +1,22 @@
 from dataclasses import replace
-
-from models.typing import TypingState
-from models.events import Event, CharacterTyped, BackspacePressed
+from app.models.typing import TypingState
+from app.models.events import Event, CharacterTyped, BackspacePressed
 
 
 class StateTransitionEngine:
     def _process_char(self, state: TypingState, char: str) -> TypingState:
-        """
-        Handles chracter transition
-        """
+        """Handles character transition."""
         if len(char) != 1:
-            raise ValueError("Only a single characters allowed to be typed")
+            raise ValueError("Only a single character allowed to be typed")
 
-        return self._build_state(state, typed=state.typed + char)
+        return replace(state, typed=state.typed + char)
 
     def _process_backspace(self, state: TypingState) -> TypingState:
-        "Handles backspace transition"
+        """Handles backspace transition."""
         if not state.typed:
             return state
 
-        return self._build_state(state, typed=state.typed[:-1])
-
-    def _build_state(self, previous_state: TypingState, **changes):
-        return replace(previous_state, **changes)
+        return replace(state, typed=state.typed[:-1])
 
     def process_event(
         self,
