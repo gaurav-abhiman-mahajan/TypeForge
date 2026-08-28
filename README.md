@@ -1,40 +1,68 @@
 # TypeForge
 
-TypeForge is a terminal-native typing practice application built in Python using the Textual framework. Inspired by modern typing platforms like Monkeytype, the project focuses on delivering a fast, minimal, and highly responsive typing experience directly inside the terminal.
+TypeForge is a terminal-native, local-first typing practice and competitive typing application built in Python using the Textual framework.
 
-Unlike traditional terminal typing scripts, TypeForge is being designed around an event-driven and immutable state architecture. The application processes user input as domain events and transitions between immutable typing states, making the engine deterministic, replayable, and extensible for future features such as analytics, multiplayer support, synchronization, and replay systems.
+Unlike traditional terminal typing scripts, TypeForge is designed around an event-driven and immutable state transition engine. Keyboard input is converted into immutable domain events, validated by policies, and evaluated into deterministic states and accurate metrics (Qualified Speed, Raw Speed, Keystroke Accuracy, and Character Outcomes).
 
-The project aims to explore deeper software engineering concepts including:
+## Installation & Setup
 
-* Event-driven architecture
-* Immutable state transitions
-* Reactive terminal UIs
-* Replayable typing sessions
-* Offline-first application design
-* Cross-platform terminal support
-* Real-time typing analytics
+Requirements: Python 3.10+
 
-## Current Features
+```bash
+# Clone the repository
+git clone https://github.com/your-username/TypeForge.git
+cd TypeForge
 
-* Terminal-based typing interface
-* Real-time WPM and accuracy calculation
-* Event-driven typing engine
-* Immutable typing state management
-* Character correctness evaluation
-* Backspace and test completion handling
-* Reactive UI built with Textual
+# Create and activate virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
 
-## Planned Features
+# Install in editable mode with development dependencies
+pip install -e ".[dev]"
+```
 
-* Multiple typing modes
-* Replay system
-* Typing analytics
-* Theme customization
-* Persistent local storage
-* Online synchronization
-* Global leaderboards
-* Multiplayer typing races
-* Offline-first architecture
-* Advanced rendering and animations
+## Running TypeForge
 
-TypeForge is not just a typing application — it is also an exploration into building scalable, reactive, and state-driven terminal software systems.
+Launch the application directly from your shell:
+
+```bash
+typeforge
+```
+
+Or run via module entry point:
+
+```bash
+python -m app.main
+```
+
+## Controls
+
+| Key | Action |
+| --- | --- |
+| `Printable Character` | Append character to typing buffer |
+| `Backspace` | Erase previous character (enabled by default) |
+| `Esc` | Abort active test / Exit from result screen |
+| `Ctrl+R` | Restart test with a fresh target |
+| `Ctrl+Q` | Quit TypeForge immediately |
+| `Enter` (Result Screen) | Start next test with fresh words |
+| `r` / `Ctrl+R` (Result Screen) | Repeat the exact same target |
+
+## Verified Features (v0.2.0 MVP)
+
+* **Terminal-Native TUI**: Centered, responsive layout built with Textual and high-contrast color/character styling.
+* **Deterministic Content Engine**: Independent `TargetProvider` boundary with cached, validated English corpora and seeded RNG support.
+* **Pure Transition Engine**: Pure immutable typing state transitions with strict terminal lifecycle states (`IDLE`, `RUNNING`, `FINISHED`, `ABORTED`).
+* **Accurate Metrics**:
+  * **Qualified Speed (WPM)**: Positionally correct characters / 5 / active minutes.
+  * **Raw Speed (WPM)**: Total typed characters / 5 / active minutes.
+  * **Keystroke Accuracy (%)**: Correct character ratio against evaluable keystrokes.
+  * **Character Outcomes**: Detailed breakdown (`correct`, `incorrect`, `extra`, `missed`).
+* **Post-Test Result Flow**: Detailed results view with single-keystroke retry, repeat, and exit actions.
+
+## Running Tests
+
+Run the automated test suite with pytest:
+
+```bash
+pytest
+```

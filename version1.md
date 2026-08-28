@@ -193,3 +193,26 @@ Settings object persisted
 
 Possible repository stored at: ~/.cache/typeforge/
 
+
+## Core engine loop:
+
+```
+mermaid
+---
+config:
+  layout: elk
+---
+flowchart TD
+    incomingEvent[Incoming Event]
+    isValid{Is Valid?}
+    transitionState[Transition State]
+    quit[Quit]
+    
+    incomingEvent --> isValid
+    isValid -->|Yes| transitionState
+    transitionState --> incomingEvent
+    isValid -->|No| quit
+```
+
+
+

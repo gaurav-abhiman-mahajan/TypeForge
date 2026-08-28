@@ -1,5 +1,10 @@
-from app import TypingApp
+from app.app import TypingApp
 
-if __name__ == "__main__":
+
+def main() -> None:
     application = TypingApp()
     application.run()
+
+
+if __name__ == "__main__":
+    main()
